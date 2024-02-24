@@ -7,4 +7,7 @@
   let { expenseSources } = data;
 </script>
 
-<ExpenseSourcesTable {expenseSources} />
+<div class="px-2">
+  <h2 class="text-4xl font-extrabold">ערוך הוצאות</h2>
+  <ExpenseSourcesTable {expenseSources} />
+</div>

@@ -1,6 +1,8 @@
 <script lang="ts">
   import { TableBodyCell, TableBodyRow } from 'flowbite-svelte';
   import { ExpenseSource, RecurringMoneyValue, Period } from '$lib/domain';
+  import EditButton from './editButton.svelte';
+  import DeleteButton from './deleteButton.svelte';
 
   export let expenseSource: ExpenseSource;
 
@@ -53,4 +55,8 @@
   <TableBodyCell>{calculateMonthlyCost(expenseSource.expense)}</TableBodyCell>
   <TableBodyCell>{calculateYearlyCost(expenseSource.expense)}</TableBodyCell>
   <TableBodyCell>{expenseSource.expense.amount} {getPeriodText(expenseSource.expense.period)}</TableBodyCell>
+  <TableBodyCell>
+    <EditButton/>
+    <DeleteButton/>
+  </TableBodyCell>
 </TableBodyRow>
