@@ -1,8 +1,10 @@
+export type PeriodKind = 'Month' | 'Year';
+
 export class Period {
-	kind: 'Month' | 'Year';
+	kind: PeriodKind;
 	every: number;
 
-	constructor(kind: 'Month' | 'Year', every: number) {
+	constructor(kind: PeriodKind, every: number) {
 		this.kind = kind;
 		this.every = every;
 	}

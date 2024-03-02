@@ -2,7 +2,6 @@
 	import { Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import { ExpenseSource } from '$lib/domain';
 	import ExpenseSourcesTableRow from './expenseSourcesTableRow.svelte';
-	import AddButton from './addButton.svelte';
 
 	export let expenseSources: ExpenseSource[];
 </script>
@@ -21,6 +20,3 @@
 		{/each}
 	</TableBody>
 </Table>
-<div class="flex justify-center">
-	<AddButton />
-</div>
