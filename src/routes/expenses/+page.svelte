@@ -47,7 +47,7 @@
 			<input type="number" name="amount" />
 
 			<button type="submit">הוסף</button>
-			<button type="button" on:click={() => dialog.close()}>ביטול</button>
+			<button type="reset" on:click={() => dialog.close()}>ביטול</button>
 		</form>
 	</dialog>
 </div>
