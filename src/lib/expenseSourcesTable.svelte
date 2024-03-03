@@ -4,6 +4,7 @@
 	import ExpenseSourcesTableRow from './expenseSourcesTableRow.svelte';
 
 	export let expenseSources: ExpenseSource[];
+	export let onDelete: (e: MouseEvent, expenseSource: ExpenseSource) => void;
 </script>
 
 <Table class="border-separate text-center">
@@ -16,7 +17,7 @@
 	</TableHead>
 	<TableBody>
 		{#each expenseSources as expenseSource}
-			<ExpenseSourcesTableRow {expenseSource} />
+			<ExpenseSourcesTableRow {expenseSource} onDelete={(e) => onDelete(e, expenseSource)} />
 		{/each}
 	</TableBody>
 </Table>

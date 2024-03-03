@@ -15,7 +15,17 @@
 
 <div class="px-2">
 	<h2 class="text-4xl font-extrabold">ערוך הוצאות</h2>
-	<ExpenseSourcesTable {expenseSources} />
+	<ExpenseSourcesTable
+		{expenseSources}
+		onDelete={async (_, toDelete) => {
+			const response = await fetch(`/api/expenses/${toDelete.id}`, { method: 'DELETE' });
+			if (response.status !== 204) {
+				return;
+			}
+
+			expenseSources = expenseSources.filter((source) => source !== toDelete);
+		}}
+	/>
 	<div class="flex justify-center">
 		<AddButton on:click={() => dialog.showModal()} />
 	</div>

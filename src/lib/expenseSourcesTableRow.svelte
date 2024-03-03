@@ -5,6 +5,7 @@
 	import DeleteButton from './deleteButton.svelte';
 
 	export let expenseSource: ExpenseSource;
+	export let onDelete: (e: MouseEvent) => void;
 
 	function calculateMonthlyCost(expense: RecurringMoneyValue) {
 		switch (expense.period.kind) {
@@ -55,6 +56,6 @@
 	>
 	<TableBodyCell>
 		<EditButton />
-		<DeleteButton />
+		<DeleteButton on:click={onDelete} />
 	</TableBodyCell>
 </TableBodyRow>
