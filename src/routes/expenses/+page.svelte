@@ -12,7 +12,7 @@
 </script>
 
 <div class="px-2">
-	<h2 class="text-4xl font-extrabold">ערוך הוצאות</h2>
+	<h2 class="text-4xl font-extrabold my-2">ערוך הוצאות</h2>
 	<ExpenseSourcesTable
 		{expenseSources}
 		onDelete={async (_, toDelete) => {
@@ -24,7 +24,7 @@
 			expenseSources = expenseSources.filter((source) => source !== toDelete);
 		}}
 	/>
-	<div class="flex justify-center">
+	<div class="flex justify-center my-2">
 		<AddButton on:click={() => dialog.showModal()} />
 	</div>
 	<dialog bind:this={dialog} class="rounded-lg">
