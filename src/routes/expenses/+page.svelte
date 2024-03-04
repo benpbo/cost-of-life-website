@@ -1,15 +1,13 @@
 <script lang="ts">
 	import ExpenseSourcesTable from '$lib/expenseSourcesTable.svelte';
-	import type { PeriodKind } from '$lib/domain';
 	import AddButton from '$lib/addButton.svelte';
 	import type { PageData } from './$types';
+	import ExpenseSourceForm from '$lib/expenseSourceForm.svelte';
 
 	export let data: PageData;
 
 	let { expenseSources } = data;
 
-	let name: string;
-	let periodKind: PeriodKind;
 	let dialog: HTMLDialogElement;
 </script>
 
@@ -29,25 +27,7 @@
 	<div class="flex justify-center">
 		<AddButton on:click={() => dialog.showModal()} />
 	</div>
-	<dialog bind:this={dialog}>
-		<form method="post" action="?/create">
-			<label for="name">שם</label>
-			<input type="text" name="name" bind:value={name} />
-
-			<label for="period-kind">בחר סוג תקופה</label>
-			<select name="period-kind" bind:value={periodKind}>
-				<option value="Month">חודש</option>
-				<option value="Year">שנה</option>
-			</select>
-
-			<label for="period-every">כל כמה</label>
-			<input type="number" name="period-every" />
-
-			<label for="amount">עלות</label>
-			<input type="number" name="amount" />
-
-			<button type="submit">הוסף</button>
-			<button type="reset" on:click={() => dialog.close()}>ביטול</button>
-		</form>
+	<dialog bind:this={dialog} class="rounded-lg">
+		<ExpenseSourceForm action="?/create" onReset={() => dialog.close()} />
 	</dialog>
 </div>
