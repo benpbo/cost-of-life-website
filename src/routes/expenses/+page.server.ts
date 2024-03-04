@@ -25,6 +25,31 @@ export const actions = {
         'Content-Type': 'application/json'
       }
     });
+  },
+
+  edit: async ({ request }) => {
+    const data = await request.formData();
+
+    const id = data.get('id') as string;
+    const body = {
+      name: data.get('name'),
+      expense: {
+        period: {
+          kind: data.get('period-kind'),
+          every: parseInt(data.get('period-every') as string),
+        },
+        amount: parseInt(data.get('amount') as string),
+      }
+    };
+
+    const url = new URL(`/expense/sources/${id}`, PUBLIC_API_BASE_URL);
+    await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   }
 } satisfies Actions;
 

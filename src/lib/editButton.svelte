@@ -5,6 +5,7 @@
 <Button
 	type="button"
 	class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+  on:click
 >
 	<svg
 		class="h-6 w-6 text-gray-800 dark:text-white"

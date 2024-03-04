@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Input, Label, NumberInput, Select } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
 
 	export let action: string;
 	export let onReset: (e: MouseEvent) => void;
@@ -7,20 +7,7 @@
 
 <form {action} method="post" class="mx-auto">
 	<div class="mx-8 my-4">
-		<Label for="name">שם</Label>
-		<Input type="text" name="name" />
-
-		<Label for="period-kind">סוג תקופה</Label>
-		<Select placeholder="בחר" name="period-kind">
-			<option value="Month">חודש</option>
-			<option value="Year">שנה</option>
-		</Select>
-
-		<Label for="period-every">תדירות</Label>
-		<NumberInput name="period-every" />
-
-		<Label for="amount">עלות</Label>
-		<NumberInput name="amount" />
+		<slot />
 	</div>
 	<div class="m-2 flex items-center justify-around">
 		<Button

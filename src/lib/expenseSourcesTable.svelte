@@ -5,6 +5,7 @@
 
 	export let expenseSources: ExpenseSource[];
 	export let onDelete: (e: MouseEvent, expenseSource: ExpenseSource) => void;
+	export let onEdit: (e: MouseEvent, expenseSource: ExpenseSource) => void;
 </script>
 
 <Table class="border-separate text-center">
@@ -17,7 +18,11 @@
 	</TableHead>
 	<TableBody>
 		{#each expenseSources as expenseSource}
-			<ExpenseSourcesTableRow {expenseSource} onDelete={(e) => onDelete(e, expenseSource)} />
+			<ExpenseSourcesTableRow
+				{expenseSource}
+				onDelete={(e) => onDelete(e, expenseSource)}
+				onEdit={(e) => onEdit(e, expenseSource)}
+			/>
 		{/each}
 	</TableBody>
 </Table>

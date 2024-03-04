@@ -6,6 +6,7 @@
 
 	export let expenseSource: ExpenseSource;
 	export let onDelete: (e: MouseEvent) => void;
+	export let onEdit: (e: MouseEvent) => void;
 
 	function calculateMonthlyCost(expense: RecurringMoneyValue) {
 		switch (expense.period.kind) {
@@ -55,7 +56,7 @@
 		>{expenseSource.expense.amount} {getPeriodText(expenseSource.expense.period)}</TableBodyCell
 	>
 	<TableBodyCell>
-		<EditButton />
+		<EditButton on:click={onEdit} />
 		<DeleteButton on:click={onDelete} />
 	</TableBodyCell>
 </TableBodyRow>
