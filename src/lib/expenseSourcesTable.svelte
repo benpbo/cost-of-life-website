@@ -8,13 +8,17 @@
 	export let onEdit: (e: MouseEvent, expenseSource: ExpenseSource) => void;
 </script>
 
-<Table class="border-separate text-center">
+<Table
+	class="border-separate text-center"
+  striped={true}
+  hoverable={true}
+>
 	<TableHead>
 		<TableHeadCell>שם</TableHeadCell>
-		<TableHeadCell>עלות חודשית</TableHeadCell>
-		<TableHeadCell>עלות שנתית</TableHeadCell>
-		<TableHeadCell>עלות לתקופה</TableHeadCell>
-		<TableHeadCell>עריכה</TableHeadCell>
+		<TableHeadCell class="w-36">עלות חודשית</TableHeadCell>
+		<TableHeadCell class="w-36">עלות שנתית</TableHeadCell>
+		<TableHeadCell class="w-48">עלות לתקופה</TableHeadCell>
+		<TableHeadCell class="w-48">עריכה</TableHeadCell>
 	</TableHead>
 	<TableBody>
 		{#each expenseSources as expenseSource}

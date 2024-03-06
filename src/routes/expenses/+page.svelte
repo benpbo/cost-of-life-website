@@ -19,7 +19,7 @@
 	let editedExpense: ExpenseSource | undefined = undefined;
 </script>
 
-<div class="px-2">
+<div class="px-12">
 	<h2 class="my-2 text-4xl font-extrabold">ערוך הוצאות</h2>
 	<ExpenseSourcesTable
 		{expenseSources}

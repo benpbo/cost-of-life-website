@@ -48,14 +48,14 @@
 	}
 </script>
 
-<TableBodyRow class="odd:bg-white even:bg-gray-50">
+<TableBodyRow>
 	<TableBodyCell>{expenseSource.name}</TableBodyCell>
 	<TableBodyCell>{calculateMonthlyCost(expenseSource.expense)}</TableBodyCell>
 	<TableBodyCell>{calculateYearlyCost(expenseSource.expense)}</TableBodyCell>
 	<TableBodyCell
 		>{expenseSource.expense.amount} {getPeriodText(expenseSource.expense.period)}</TableBodyCell
 	>
-	<TableBodyCell>
+	<TableBodyCell class="flex justify-evenly">
 		<EditButton on:click={onEdit} />
 		<DeleteButton on:click={onDelete} />
 	</TableBodyCell>
