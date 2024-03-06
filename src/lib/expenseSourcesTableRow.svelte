@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { TableBodyCell, TableBodyRow } from 'flowbite-svelte';
+	import { Button, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 	import { ExpenseSource, RecurringMoneyValue, Period } from '$lib/domain';
-	import EditButton from './editButton.svelte';
-	import DeleteButton from './deleteButton.svelte';
+	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import { createEventDispatcher } from 'svelte';
 
 	export let expenseSource: ExpenseSource;
-	export let onDelete: (e: MouseEvent) => void;
-	export let onEdit: (e: MouseEvent) => void;
+
+	const dispatch = createEventDispatcher<{
+		edit: null;
+		delete: null;
+	}>();
 
 	function calculateMonthlyCost(expense: RecurringMoneyValue) {
 		switch (expense.period.kind) {
@@ -56,7 +59,11 @@
 		>{expenseSource.expense.amount} {getPeriodText(expenseSource.expense.period)}</TableBodyCell
 	>
 	<TableBodyCell class="flex justify-evenly">
-		<EditButton on:click={onEdit} />
-		<DeleteButton on:click={onDelete} />
+		<Button type="button" on:click={() => dispatch('edit')} color="blue">
+			<EditOutline size="lg" />
+		</Button>
+		<Button type="button" on:click={() => dispatch('delete')} color="red">
+			<TrashBinOutline size="lg" />
+		</Button>
 	</TableBodyCell>
 </TableBodyRow>

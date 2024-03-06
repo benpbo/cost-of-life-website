@@ -2,17 +2,17 @@
 	import { Table, TableBody, TableHead, TableHeadCell } from 'flowbite-svelte';
 	import { ExpenseSource } from '$lib/domain';
 	import ExpenseSourcesTableRow from './expenseSourcesTableRow.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let expenseSources: ExpenseSource[];
-	export let onDelete: (e: MouseEvent, expenseSource: ExpenseSource) => void;
-	export let onEdit: (e: MouseEvent, expenseSource: ExpenseSource) => void;
+
+	const dispatch = createEventDispatcher<{
+		edit: ExpenseSource;
+		delete: ExpenseSource;
+	}>();
 </script>
 
-<Table
-	class="border-separate text-center"
-  striped={true}
-  hoverable={true}
->
+<Table class="border-separate text-center" striped={true} hoverable={true}>
 	<TableHead>
 		<TableHeadCell>שם</TableHeadCell>
 		<TableHeadCell class="w-36">עלות חודשית</TableHeadCell>
@@ -24,8 +24,8 @@
 		{#each expenseSources as expenseSource}
 			<ExpenseSourcesTableRow
 				{expenseSource}
-				onDelete={(e) => onDelete(e, expenseSource)}
-				onEdit={(e) => onEdit(e, expenseSource)}
+				on:edit={() => dispatch('edit', expenseSource)}
+				on:delete={() => dispatch('delete', expenseSource)}
 			/>
 		{/each}
 	</TableBody>
