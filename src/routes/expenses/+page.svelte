@@ -40,25 +40,21 @@
 	</div>
 	<Modal bind:open={isAdding} size="xs" outsideclose>
 		<Form action="?/create" on:reset={() => (isAdding = false)}>
-			<div class="mx-8 my-4">
-				<NameInput />
-				<PeriodKindInput />
-				<PeriodEveryInput />
-				<AmountInput />
-			</div>
+			<NameInput />
+			<PeriodKindInput />
+			<PeriodEveryInput />
+			<AmountInput />
 		</Form>
 	</Modal>
 	<Modal open={editedExpense !== undefined} size="xs" outsideclose>
 		<Form action="?/edit" on:reset={() => (editedExpense = undefined)}>
-			<div class="mx-8 my-4">
-				{#if editedExpense}
-					<input type="hidden" name="id" value={editedExpense.id} />
-					<NameInput value={editedExpense.name} />
-					<PeriodKindInput value={editedExpense.expense.period.kind} />
-					<PeriodEveryInput value={editedExpense.expense.period.every} />
-					<AmountInput value={editedExpense.expense.amount} />
-				{/if}
-			</div>
+			{#if editedExpense}
+				<input type="hidden" name="id" value={editedExpense.id} />
+				<NameInput value={editedExpense.name} />
+				<PeriodKindInput value={editedExpense.expense.period.kind} />
+				<PeriodEveryInput value={editedExpense.expense.period.every} />
+				<AmountInput value={editedExpense.expense.amount} />
+			{/if}
 		</Form>
 	</Modal>
 </div>
