@@ -7,7 +7,7 @@
 	import PeriodKindInput from '$lib/periodKindInput.svelte';
 	import PeriodEveryInput from '$lib/periodEveryInput.svelte';
 	import AmountInput from '$lib/amountInput.svelte';
-	import { Button } from 'flowbite-svelte';
+	import { Button, Heading } from 'flowbite-svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 
 	export let data: PageData;
@@ -21,7 +21,7 @@
 </script>
 
 <div class="px-12">
-	<h2 class="my-2 text-4xl font-extrabold">ערוך הוצאות</h2>
+	<Heading tag="h2" class="my-2">ערוך הוצאות</Heading>
 	<ExpenseSourcesTable
 		{expenseSources}
 		on:delete={async ({ detail: toDelete }) => {
