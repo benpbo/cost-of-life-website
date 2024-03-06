@@ -7,15 +7,14 @@
 	import PeriodKindInput from '$lib/periodKindInput.svelte';
 	import PeriodEveryInput from '$lib/periodEveryInput.svelte';
 	import AmountInput from '$lib/amountInput.svelte';
-	import { Button, Heading } from 'flowbite-svelte';
+	import { Button, Heading, Modal } from 'flowbite-svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 
 	export let data: PageData;
 
 	let { expenseSources } = data;
 
-	let addDialog: HTMLDialogElement;
-	let editDialog: HTMLDialogElement;
+	let isAdding: boolean = false;
 
 	let editedExpense: ExpenseSource | undefined = undefined;
 </script>
@@ -32,18 +31,15 @@
 
 			expenseSources = expenseSources.filter((source) => source !== toDelete);
 		}}
-		on:edit={({ detail: toEdit }) => {
-			editedExpense = toEdit;
-			editDialog.showModal();
-		}}
+		on:edit={({ detail: toEdit }) => (editedExpense = toEdit)}
 	/>
 	<div class="my-2 flex justify-center">
-		<Button on:click={() => addDialog.showModal()} type="button" color="green">
+		<Button on:click={() => (isAdding = true)} type="button" color="green">
 			<CirclePlusOutline size="lg" />
 		</Button>
 	</div>
-	<dialog bind:this={addDialog} class="rounded-lg">
-		<Form action="?/create" on:reset={() => addDialog.close()}>
+	<Modal bind:open={isAdding} size="xs" outsideclose>
+		<Form action="?/create" on:reset={() => (isAdding = false)}>
 			<div class="mx-8 my-4">
 				<NameInput />
 				<PeriodKindInput />
@@ -51,15 +47,9 @@
 				<AmountInput />
 			</div>
 		</Form>
-	</dialog>
-	<dialog bind:this={editDialog} class="rounded-lg">
-		<Form
-			action="?/edit"
-			on:reset={() => {
-				editDialog.close();
-				editedExpense = undefined;
-			}}
-		>
+	</Modal>
+	<Modal open={editedExpense !== undefined} size="xs" outsideclose>
+		<Form action="?/edit" on:reset={() => (editedExpense = undefined)}>
 			<div class="mx-8 my-4">
 				{#if editedExpense}
 					<input type="hidden" name="id" value={editedExpense.id} />
@@ -70,5 +60,5 @@
 				{/if}
 			</div>
 		</Form>
-	</dialog>
+	</Modal>
 </div>
