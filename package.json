@@ -38,5 +38,9 @@
 		"typescript-svelte-plugin": "^0.3.37",
 		"vite": "^5.0.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@auth/core": "^0.28.0",
+		"@auth/sveltekit": "^0.14.0"
+	}
 }
