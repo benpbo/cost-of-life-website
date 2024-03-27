@@ -32,11 +32,6 @@
 				</DropdownHeader>
 				<DropdownItem on:click={() => signOut()}>התנתק/י</DropdownItem>
 			</Dropdown>
-		{:else}
-			<div class="flex items-center md:order-2">
-				<Button type="button" on:click={() => signIn('keycloak')} color="green">התחבר/י</Button>
-				<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
-			</div>
 		{/if}
 	</div>
 	<NavUl>
