@@ -1,29 +1,40 @@
-import Keycloak, { type KeycloakInitOptions } from 'keycloak-js';
+import Keycloak from 'keycloak-js';
 import type { LayoutLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { serialize } from 'cookie'
 
 export const ssr = false;
 export const load: LayoutLoad = async () => {
-  const instance = {
-    realm: 'Test',
-    url: 'http://localhost:8081',
-    clientId: 'cost-of-life',
-  };
-
-  const keycloak = new Keycloak(instance);
-  const kcInitOpts: KeycloakInitOptions = {
-    onLoad: "login-required",
-    checkLoginIframe: false,
-  };
-
   try {
-    const authenticated = await keycloak.init(kcInitOpts);
-    if (!authenticated) {
-      await keycloak.login();
+    const keycloak = new Keycloak();
+    function updateCookie() {
+      document.cookie = serialize(
+        'token',
+        keycloak.token ?? '',
+        {
+          path: '/',
+          sameSite: 'strict'
+        }
+      );
     }
 
-    document.cookie = serialize('token', keycloak.token ?? '', { path: '/', sameSite: 'strict' });
+    // Setup callbacks
+    keycloak.onAuthRefreshSuccess = updateCookie;
+    keycloak.onAuthRefreshError = async () => {
+      await keycloak.login();
+    };
+
+    keycloak.onTokenExpired = async () => {
+      await keycloak.updateToken();
+    };
+
+    // Initialize keycloak, require user to login
+    await keycloak.init({
+      onLoad: "login-required",
+    });
+
+    updateCookie();
+
     return {
       keycloak,
     };
