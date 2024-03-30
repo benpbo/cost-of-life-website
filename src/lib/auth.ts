@@ -1,12 +1,11 @@
 import { serialize } from 'cookie';
-import Keycloak, { type KeycloakInitOptions } from 'keycloak-js';
+import Keycloak from 'keycloak-js';
 
 class KeycloakWithRefresh extends Keycloak {
-  async init(initOptions: KeycloakInitOptions): Promise<boolean> {
-    const success = await super.init(initOptions);
-    this.updateCookie();
-
-    return success;
+  onReady(authenticated?: boolean | undefined): void {
+    if (authenticated) {
+      this.updateCookie();
+    }
   }
 
   async onTokenExpired(): Promise<void> {
