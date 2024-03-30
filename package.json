@@ -40,6 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"cookie": "^0.6.0",
 		"keycloak-js": "^24.0.1"
 	}
 }

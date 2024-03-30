@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
 export const actions = {
-  create: async ({ request }) => {
+  create: async ({ request, fetch }) => {
     const data = await request.formData();
 
     const body = {
@@ -27,7 +27,7 @@ export const actions = {
     });
   },
 
-  edit: async ({ request }) => {
+  edit: async ({ request, fetch }) => {
     const data = await request.formData();
 
     const id = data.get('id') as string;
@@ -53,14 +53,14 @@ export const actions = {
   }
 } satisfies Actions;
 
-export const load: PageServerLoad = async (): Promise<{ expenseSources: ExpenseSource[] }> => {
+export const load: PageServerLoad = async ({ fetch }): Promise<{ expenseSources: ExpenseSource[] }> => {
+  async function getAllExpenseSources(): Promise<ExpenseSource[]> {
+    let url = new URL('/expense/sources', PUBLIC_API_BASE_URL);
+    let response = await fetch(url);
+    return await response.json();
+  }
+
   return {
     expenseSources: await getAllExpenseSources()
   };
 };
-
-async function getAllExpenseSources(): Promise<ExpenseSource[]> {
-  let url = new URL('/expense/sources', PUBLIC_API_BASE_URL);
-  let response = await fetch(url);
-  return await response.json();
-}

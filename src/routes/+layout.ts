@@ -1,6 +1,7 @@
 import Keycloak, { type KeycloakInitOptions } from 'keycloak-js';
 import type { LayoutLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { serialize } from 'cookie'
 
 export const ssr = false;
 export const load: LayoutLoad = async () => {
@@ -22,7 +23,7 @@ export const load: LayoutLoad = async () => {
       await keycloak.login();
     }
 
-    document.cookie = `token=${keycloak.token}; path=/; SameSite=strict`;
+    document.cookie = serialize('token', keycloak.token ?? '', { path: '/', sameSite: 'strict' });
     return {
       keycloak,
     };
