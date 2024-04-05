@@ -2,7 +2,7 @@
 	import ExpenseSourcesTable from '$lib/expenseSourcesTable.svelte';
 	import type { PageData } from './$types';
 	import Form from '$lib/form.svelte';
-	import type { ExpenseSource } from '$lib/domain';
+	import { ExpenseSource, calculateMonthlyCost, calculateYearlyCost } from '$lib/domain';
 	import NameInput from '$lib/nameInput.svelte';
 	import PeriodKindInput from '$lib/periodKindInput.svelte';
 	import PeriodEveryInput from '$lib/periodEveryInput.svelte';
@@ -13,6 +13,7 @@
 	export let data: PageData;
 
 	let { expenseSources } = data;
+  let expenses = expenseSources.map(source => source.expense);
 
 	let isAdding: boolean = false;
 
@@ -20,7 +21,20 @@
 </script>
 
 <div class="px-12">
-	<Heading tag="h2" class="my-2">ערוך הוצאות</Heading>
+	<div class="flex justify-around text-center my-2">
+    <Heading tag="h5">
+			עלות חודשית:
+			{expenses
+				.map(calculateMonthlyCost)
+				.reduce((sum, cost) => sum + cost, 0)}
+    </Heading>
+    <Heading tag="h5">
+			עלות שנתית:
+			{expenses
+				.map(calculateYearlyCost)
+				.reduce((sum, cost) => sum + cost, 0)}
+    </Heading>
+	</div>
 	<ExpenseSourcesTable
 		{expenseSources}
 		on:delete={async ({ detail: toDelete }) => {

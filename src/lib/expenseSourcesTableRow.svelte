@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { Button, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
-	import { ExpenseSource, RecurringMoneyValue, Period } from '$lib/domain';
+	import {
+		ExpenseSource,
+		Period,
+		calculateMonthlyCost,
+		calculateYearlyCost
+	} from '$lib/domain';
 	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
 
@@ -10,24 +15,6 @@
 		edit: null;
 		delete: null;
 	}>();
-
-	function calculateMonthlyCost(expense: RecurringMoneyValue) {
-		switch (expense.period.kind) {
-			case 'Month':
-				return expense.amount / expense.period.every;
-			case 'Year':
-				return expense.amount / (12 * expense.period.every);
-		}
-	}
-
-	function calculateYearlyCost(expense: RecurringMoneyValue) {
-		switch (expense.period.kind) {
-			case 'Month':
-				return (expense.amount * 12) / expense.period.every;
-			case 'Year':
-				return expense.amount / expense.period.every;
-		}
-	}
 
 	function getPeriodText(period: Period): string {
 		switch (period.kind) {
