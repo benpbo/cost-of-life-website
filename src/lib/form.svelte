@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 
@@ -7,7 +8,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<form {action} method="post" class="mx-auto">
+<form {action} use:enhance method="post" class="mx-auto">
 	<div class="mx-8 my-4">
 		<slot />
 	</div>
