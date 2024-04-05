@@ -56,7 +56,7 @@
 	<TableBodyCell>{calculateMonthlyCost(expenseSource.expense)}</TableBodyCell>
 	<TableBodyCell>{calculateYearlyCost(expenseSource.expense)}</TableBodyCell>
 	<TableBodyCell
-		>{expenseSource.expense.amount} {getPeriodText(expenseSource.expense.period)}</TableBodyCell
+		>{expenseSource.expense.amount}₪ {getPeriodText(expenseSource.expense.period)}</TableBodyCell
 	>
 	<TableBodyCell class="flex justify-evenly">
 		<Button type="button" on:click={() => dispatch('edit')} color="blue">
