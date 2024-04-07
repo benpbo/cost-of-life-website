@@ -11,23 +11,23 @@
 	} from 'flowbite-svelte';
 	import { UserSolid } from 'flowbite-svelte-icons';
 	import { page } from '$app/stores';
-	import type Keycloak from 'keycloak-js';
+	import type { Session } from '$lib/auth';
 
-	let keycloak: Keycloak = $page.data.keycloak;
+	let session: Session | undefined = $page.data.session;
 </script>
 
 <Navbar dir="rtl">
 	<div class="flex">
-		{#if keycloak.authenticated}
+		{#if session !== undefined && session.isAuthenticated()}
 			<div class="flex items-center md:order-2">
 				<UserSolid id="avatar-menu" />
 				<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
 			</div>
 			<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 				<DropdownHeader>
-					<div class="text-sm">{keycloak.tokenParsed?.preferred_username}</div>
+					<div class="text-sm">{session.getUser().username}</div>
 				</DropdownHeader>
-				<DropdownItem on:click={() => keycloak.logout()}>התנתק/י</DropdownItem>
+				<DropdownItem on:click={() => session?.logout()}>התנתק/י</DropdownItem>
 			</Dropdown>
 		{/if}
 	</div>

@@ -32,11 +32,44 @@ class KeycloakWithRefresh extends Keycloak {
   };
 }
 
-export default async () => {
+export interface User {
+  username?: string
+}
+
+export interface Session {
+  getUser(): User
+  isAuthenticated(): boolean
+  logout(): Promise<void>
+}
+
+class KeycloakSession {
+  keycloak: Keycloak
+
+  constructor(keycloak: Keycloak) {
+    this.keycloak = keycloak;
+  }
+
+  getUser(): User {
+    return {
+      username: this.keycloak.tokenParsed?.preferred_username
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return this.keycloak.authenticated ?? false;
+  }
+
+  async logout(): Promise<void> {
+    await this.keycloak.logout();
+  }
+}
+
+export async function createSession(): Promise<Session> {
   const keycloak = new KeycloakWithRefresh();
   await keycloak.init({
     onLoad: "login-required",
   });
 
-  return keycloak;
+  const session = new KeycloakSession(keycloak);
+  return session;
 };

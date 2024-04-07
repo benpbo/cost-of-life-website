@@ -4,7 +4,7 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	export let { keycloak } = data;
+	export let { session } = data;
 </script>
 
 <div class="dark:text-gray-400">
