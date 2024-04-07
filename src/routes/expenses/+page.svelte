@@ -9,11 +9,12 @@
 	import AmountInput from '$lib/amountInput.svelte';
 	import { Button, Heading, Modal } from 'flowbite-svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
+	import { _, number } from 'svelte-i18n';
 
 	export let data: PageData;
 
 	let { expenseSources } = data;
-  let expenses = expenseSources.map(source => source.expense);
+	let expenses = expenseSources.map((source) => source.expense);
 
 	let isAdding: boolean = false;
 
@@ -21,19 +22,27 @@
 </script>
 
 <div class="px-12">
-	<div class="flex justify-around text-center my-2">
-    <Heading tag="h5">
-			עלות חודשית:
-			{expenses
-				.map(calculateMonthlyCost)
-				.reduce((sum, cost) => sum + cost, 0)}
-    </Heading>
-    <Heading tag="h5">
-			עלות שנתית:
-			{expenses
-				.map(calculateYearlyCost)
-				.reduce((sum, cost) => sum + cost, 0)}
-    </Heading>
+	<div class="my-2 flex justify-around text-center">
+		<Heading tag="h5">
+			{$_('expenses.sum.monthly')}: {$number(
+				expenses.map(calculateMonthlyCost).reduce((sum, cost) => sum + cost, 0),
+				{
+					style: 'currency',
+					currency: $_('currency'),
+					maximumFractionDigits: 0
+				}
+			)}
+		</Heading>
+		<Heading tag="h5">
+			{$_('expenses.sum.yearly')}: {$number(
+				expenses.map(calculateYearlyCost).reduce((sum, cost) => sum + cost, 0),
+				{
+					style: 'currency',
+					currency: $_('currency'),
+					maximumFractionDigits: 0
+				}
+			)}
+		</Heading>
 	</div>
 	<ExpenseSourcesTable
 		{expenseSources}

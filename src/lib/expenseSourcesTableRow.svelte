@@ -1,13 +1,9 @@
 <script lang="ts">
 	import { Button, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
-	import {
-		ExpenseSource,
-		Period,
-		calculateMonthlyCost,
-		calculateYearlyCost
-	} from '$lib/domain';
+	import { ExpenseSource, Period, calculateMonthlyCost, calculateYearlyCost } from '$lib/domain';
 	import { EditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import { createEventDispatcher } from 'svelte';
+	import { _, number } from 'svelte-i18n';
 
 	export let expenseSource: ExpenseSource;
 
@@ -20,19 +16,19 @@
 		switch (period.kind) {
 			case 'Month':
 				if (period.every == 1) {
-					return 'פעם בחודש';
+					return $_('timePeriod.month.onceInOne');
 				} else if (period.every == 2) {
-					return 'פעם בחודשיים';
+					return $_('timePeriod.month.onceInTwo');
 				} else {
-					return `פעם ב${period.every} חודשים`;
+					return $_('timePeriod.month.onceInMany', { values: { amount: period.every } });
 				}
 			case 'Year':
 				if (period.every == 1) {
-					return 'פעם בשנה';
+					return $_('timePeriod.year.onceInOne');
 				} else if (period.every == 2) {
-					return 'פעם בשנתיים';
+					return $_('timePeriod.year.onceInTwo');
 				} else {
-					return `פעם ב${period.every} שנים`;
+					return $_('timePeriod.year.onceInMany', { values: { amount: period.every } });
 				}
 		}
 	}
@@ -40,11 +36,28 @@
 
 <TableBodyRow>
 	<TableBodyCell>{expenseSource.name}</TableBodyCell>
-	<TableBodyCell>{calculateMonthlyCost(expenseSource.expense)}</TableBodyCell>
-	<TableBodyCell>{calculateYearlyCost(expenseSource.expense)}</TableBodyCell>
-	<TableBodyCell
-		>{expenseSource.expense.amount}₪ {getPeriodText(expenseSource.expense.period)}</TableBodyCell
-	>
+	<TableBodyCell>
+		{$number(calculateMonthlyCost(expenseSource.expense), {
+			style: 'currency',
+			currency: $_('currency'),
+			maximumFractionDigits: 0
+		})}
+	</TableBodyCell>
+	<TableBodyCell>
+		{$number(calculateYearlyCost(expenseSource.expense), {
+			style: 'currency',
+			currency: $_('currency'),
+			maximumFractionDigits: 0
+		})}
+	</TableBodyCell>
+	<TableBodyCell>
+		{$number(expenseSource.expense.amount, {
+			style: 'currency',
+			currency: $_('currency'),
+			maximumFractionDigits: 0
+		})}
+		{getPeriodText(expenseSource.expense.period)}
+	</TableBodyCell>
 	<TableBodyCell class="flex justify-evenly">
 		<Button type="button" on:click={() => dispatch('edit')} color="blue">
 			<EditOutline size="lg" />

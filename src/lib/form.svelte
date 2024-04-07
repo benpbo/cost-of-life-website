@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { _ } from 'svelte-i18n';
 
 	export let action: string;
 
@@ -13,7 +14,9 @@
 		<slot />
 	</div>
 	<div class="m-2 flex items-center justify-around">
-		<Button type="submit" color="green">שמור</Button>
-		<Button type="reset" on:click={(e) => dispatch('reset', { e })} color="red">בטל</Button>
+		<Button type="submit" color="green">{$_('form.save')}</Button>
+		<Button type="reset" on:click={(e) => dispatch('reset', { e })} color="red">
+			{$_('form.cancel')}
+		</Button>
 	</div>
 </form>

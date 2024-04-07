@@ -1,0 +1,46 @@
+{
+  "currency": "ILS",
+  "navbar": {
+    "logout": "התנתק/י",
+    "expenses": "הוצאות"
+  },
+  "expenses": {
+    "sum": {
+      "monthly": "עלות חודשית",
+      "yearly": "עלות שנתית"
+    },
+    "tableTitle": {
+      "name": "שם",
+      "costPerMonth": "עלות חודשית",
+      "costPerYear": "עלות שנתית",
+      "costForPeriod": "עלות לתקופה",
+      "edit": "עריכה"
+    }
+  },
+  "timePeriod": {
+    "month": {
+      "onceInOne": "פעם בחודש",
+      "onceInTwo": "פעם בחודשיים",
+      "onceInMany": "פעם ב{amount} חודשים"
+    },
+    "year": {
+      "onceInOne": "פעם בשנה",
+      "onceInTwo": "פעם בשנתיים",
+      "onceInMany": "פעם ב${period.every} שנים"
+    }
+  },
+  "form": {
+    "save": "שמור",
+    "cancel": "בטל"
+  },
+  "input": {
+    "name": "שם",
+    "periodEvery": "תדירות",
+    "periodKind": {
+      "label": "סוג תקופה",
+      "placeholder": "בחר",
+      "month": "חודש",
+      "year": "שנה"
+    }
+  }
+}
