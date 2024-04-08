@@ -19,18 +19,18 @@
 
 <Navbar dir="rtl">
 	<div class="flex">
-		{#if session !== undefined && session.isAuthenticated()}
-			<div class="flex items-center md:order-2">
-				<UserSolid id="avatar-menu" />
-				<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
-			</div>
-			<Dropdown placement="bottom" triggeredBy="#avatar-menu">
+		<div class="flex items-center md:order-2">
+			<UserSolid id="avatar-menu" />
+			<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
+		</div>
+		<Dropdown placement="bottom" triggeredBy="#avatar-menu">
+			{#if session?.isAuthenticated() === true}
 				<DropdownHeader>
 					<div class="text-sm">{session.getUser().username}</div>
 				</DropdownHeader>
 				<DropdownItem on:click={() => session?.logout()}>{$_('navbar.logout')}</DropdownItem>
-			</Dropdown>
-		{/if}
+			{/if}
+		</Dropdown>
 	</div>
 	<NavUl>
 		<NavLi href="/expenses">{$_('navbar.expenses')}</NavLi>
